@@ -7,12 +7,25 @@ function [ textureM ] = getTextureMatrix(colourIm, blobBoxes, neighbours, histSi
 %   histSize_texture: the parameter that control the size of the histogram, it
 %   will refer to one chanel and one direction size,
 
+%imshow(colourIm)
+sigma = 1;
+h = fspecial('gaussian', 5, sigma);
+blurred = zeros(size(colourIm));
+for i = 1:3
+    blurred(:,:,i) = imfilter(colourIm(:,:,i),h);
+end
+%figure;
+%imshow(blurred)
+
+%construct the bin
+binSize = 2 / histSize_texture;
+bins = -1+binSize/2 : binSize : 1 - binSize/2;
 
 textureM = zeros(length(neighbours),histSize_texture * 3 * 2);%we should have a hist for each segmentation, and each direction
 %in this implementation, I use the image gradient in the x and y direction 
 
 for j = 1:3 % for each channel
-   imageChannel = colourIm(:,:,j);
+   imageChannel = blurred(:,:,j);
    for i = 1: length(neighbours)%for each segmentation
        poi = imageChannel( blobBoxes(i,1):blobBoxes(i,3),blobBoxes(i,2):blobBoxes(i,4) );
        poiSize = size(poi,1) * size(poi,2);
@@ -33,9 +46,9 @@ for j = 1:3 % for each channel
        if size(poi,1) ~= 1 && size(poi,2) ~= 1 
            [x,y] = gradient(poi);
        end
-       
-       [countsX,~] = hist(x(:),histSize_texture);
-       [countsY,~] = hist(y(:),histSize_texture);
+
+       [countsX,~] = hist(x(:),bins);
+       [countsY,~] = hist(y(:),bins);
        countsX = countsX / (poiSize * 3 * 2);
        countsY = countsY / (poiSize * 3 * 2);
        %for x direction

@@ -32,3 +32,11 @@ rectangle = int32([600,600,300,300]);
 J = step(shapeInserter, im, rectangle);
 figure
 imshow(J); 
+
+
+histSize_texture = 25;
+binSize = 2 / histSize_texture;
+bins = -1+binSize/2 : binSize : 1 - binSize/2;
+[countsX,bin] = hist(x(:),bins);
+bar(countsX)
+

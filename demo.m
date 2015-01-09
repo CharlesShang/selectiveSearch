@@ -1,4 +1,4 @@
-ls%this is the yiqing's implementation of the selevtive search algorithm
+%this is the yiqing's implementation of the selevtive search algorithm
 
 clear;clc;
 
@@ -36,7 +36,7 @@ sigma = 0.8;
 histSize_color = 25;% how many bins to use in a color histogram
 histSize_texture = 25;% how many bins to use in a single texture histogram
 % As an example, use a single image
-images = {'000015.jpg'};
+images = {'099.jpg'};
 im = imread(images{1});
 
 
