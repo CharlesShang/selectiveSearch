@@ -62,7 +62,7 @@ similarM_texture  = getInitialSimilarM_texture( neighbours,textureM );
 
 para_size = 1;
 para_fill = 2;
-para_color = 0.1;
+para_color = 1;
 para_texture = 1;
 parameter_suite = [para_size,para_fill,para_color,para_texture];
 

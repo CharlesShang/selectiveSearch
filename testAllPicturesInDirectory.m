@@ -12,13 +12,14 @@ clc;clear all;
 
 
 
-dirName = {'../icdar1003/SceneTrialTest/ryoungt_13.08.2002', '../icdar1003/SceneTrialTest/ryoungt_05.08.2002','../icdar1003/SceneTrialTest/sml_01.08.2002'};
+%dirName = {'../icdar1003/SceneTrialTest/ryoungt_13.08.2002', '../icdar1003/SceneTrialTest/ryoungt_05.08.2002','../icdar1003/SceneTrialTest/sml_01.08.2002'};
+dirName = {'../icdar1003/SceneTrialTest/picsForNewGT'};
 
 theK = 200;
 para_size = 1;
 para_fill = 2;
-para_color = 0;
-para_texture = 0;
+para_color = 1;
+para_texture = 1;
 
 for j = 1:length(dirName)
 
@@ -28,29 +29,29 @@ for j = 1:length(dirName)
         if ~theDir(i).isdir
 
 
-            if theDir(i).bytes / 1024 < 800
-
-                path = strcat(dirName{j},'/');
-                path = strcat(path,theDir(i).name);
-       
-                [boxes, height, width] = selectiveSearch(path,theK,para_size,para_fill,para_color,para_texture);
-
-                outputFileName = strcat(dirName{j},'/');
-                outputFileName = strcat(outputFileName, theDir(i).name(1:size(theDir(i).name,2)-4) );
-                outputFileName = strcat(outputFileName,'.txt');
-                
-                %draw the bounding boxes on the image
-                theImage = imread(path);
-                theImage = drawRectangleOnImage(theImage,boxes);
-                outputPath = '../icdar1003/SceneTrialTest/withBoxes/';
-                outputPath = strcat(outputPath,theDir(i).name);
-                imwrite(theImage,outputPath);
-
-                fileID = fopen(outputFileName,'w');
-                fprintf(fileID,'%3d %3d\n',height,width);
-                fprintf(fileID,'%3d %3d %3d %3d\n',boxes');
-                fclose(fileID);
-                fprintf('%d %s\n',i,theDir(i).name);
+            if theDir(i).bytes / 1024 >= 800
+theDir(i).name
+%                 path = strcat(dirName{j},'/');
+%                 path = strcat(path,theDir(i).name);
+%        
+%                 [boxes, height, width] = selectiveSearch(path,theK,para_size,para_fill,para_color,para_texture);
+% 
+%                 outputFileName = strcat(dirName{j},'/');
+%                 outputFileName = strcat(outputFileName, theDir(i).name(1:size(theDir(i).name,2)-4) );
+%                 outputFileName = strcat(outputFileName,'.txt');
+%                 
+%                 %draw the bounding boxes on the image
+%                 theImage = imread(path);
+%                 theImage = drawRectangleOnImage(theImage,boxes);
+%                 outputPath = '../icdar1003/SceneTrialTest/withBoxes/';
+%                 outputPath = strcat(outputPath,theDir(i).name);
+%                 imwrite(theImage,outputPath);
+% 
+%                 fileID = fopen(outputFileName,'w');
+%                 fprintf(fileID,'%3d %3d\n',height,width);
+%                 fprintf(fileID,'%3d %3d %3d %3d\n',boxes');
+%                 fclose(fileID);
+%                 fprintf('%d %s\n',i,theDir(i).name);
             end
         end
     end
